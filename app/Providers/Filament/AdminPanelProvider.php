@@ -7,7 +7,9 @@ use Filament\Panel;
 use App\Models\Team;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Filament\Auth\Login;
 use Filament\Facades\Filament;
+use App\Filament\Auth\Register;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\UserMenuItem;
 use Filament\Http\Middleware\Authenticate;
@@ -33,7 +35,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->sidebarCollapsibleOnDesktop()
-            ->login()
+            ->login(Login::class)
+            ->registration(Register::class)
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
@@ -44,9 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
+            ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class
@@ -71,7 +72,11 @@ class AdminPanelProvider extends PanelProvider
                 'Source',
                 'Settings',
             ])
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+            ]
+                //FilamentSpatieRolesPermissionsPlugin::make()
+                )
             ->databaseNotifications()
             // ->tenantRegistration(RegisterTeam::class)
             // ->tenant(Team::class)

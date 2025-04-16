@@ -3,5 +3,6 @@
 @tailwind utilities;
 @tailwind variants;
 @import '../../../../vendor/filament/filament/resources/css/base.css';
+@import '../../../../awcodes/filament-table-repeater/resources/css/plugin.css';
 
 @config 'tailwind.config.js';

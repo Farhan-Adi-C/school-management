@@ -1,22 +1,26 @@
 <?php
 
-namespace App\Filament\Student\Resources;
+namespace App\Filament\Resources;
 
+use App\Enums\CobaEnums;
 use Filament\Forms;
-use App\Models\User;
 use Filament\Tables;
+use App\Models\CobaEnum;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\CobaEnumResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Student\Resources\UserResource\Pages;
-use App\Filament\Student\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\CobaEnumResource\RelationManagers;
+use Filament\Tables\Columns\SelectColumn;
 
-class UserResource extends Resource
+class CobaEnumResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = CobaEnum::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,7 +28,8 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('name')
+                ->options(CobaEnums::class)
             ]);
     }
 
@@ -32,9 +37,7 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
-                TextColumn::make('roles.name'),
+                SelectColumn::make('name')->options(CobaEnums::class)
             ])
             ->filters([
                 //
@@ -59,11 +62,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListCobaEnums::route('/'),
+            'create' => Pages\CreateCobaEnum::route('/create'),
+            'edit' => Pages\EditCobaEnum::route('/{record}/edit'),
         ];
     }
-
-    
 }

@@ -104,8 +104,8 @@ class ClassroomResource extends Resource
         }
     }
 
-    public static function canAccess(): bool
-{
-    return auth()->user()?->hasRole(['admin', 'teacher']);
-}
+//     public static function canAccess(): bool
+// {
+//     return auth()->user()?->hasRole(['admin', 'teacher']);
+// }
 }

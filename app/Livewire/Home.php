@@ -69,7 +69,7 @@ class Home extends Component implements HasForms
         if($this->profile){
             $uploadedFile = $this->profile;
             $fileName = time().'_'.$uploadedFile->getClientOriginalName();
-            $path = $uploadedFile->StoreAs('public/students', $fileName);
+            $path = $uploadedFile->storeAs('public/students', $fileName);
 
             $data['profile'] = 'students/'.$fileName;
         }

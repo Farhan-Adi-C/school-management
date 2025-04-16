@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable //implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
@@ -78,18 +78,18 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsToMany(Team::class);
     }
 
-    public function canAccessPanel(Panel $panel): bool
-    {
+    // public function canAccessPanel(Panel $panel): bool
+    // {
 
-        $user = Auth::user();
-        $roles = $user->getRoleNames();
-        if($panel->getId() === 'admin' && $roles->contains('admin') || $roles->contains('teacher')){
-            return true;
-        }else if($panel->getId() === 'student' && $roles->contains('student')){
-            return true;
-        }else{
-            return false;
-        }
-        return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
-    }
+    //     $user = Auth::user();
+    //     $roles = $user->getRoleNames();
+    //     if($panel->getId() === 'admin' && $roles->contains('admin') || $roles->contains('teacher')){
+    //         return true;
+    //     }else if($panel->getId() === 'student' && $roles->contains('student')){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    //     return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+    // }
 }
